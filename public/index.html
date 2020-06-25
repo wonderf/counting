@@ -16,7 +16,7 @@
 
 <body>
   <span>Main page</span>
-  <form action="/" method="dialog"  onsubmit="createBornSvg(parseInt($('#start').val()),parseInt($('#end').val()))">
+  <form method="dialog"  onsubmit="createBornSvg(parseInt($('#start').val()),parseInt($('#end').val()))">
     Select born_in_xxx.svg file to upload:
     <input type="file" name="svg" id="fileToUpload">
     <input type="number" name="start" id="start">
@@ -24,7 +24,7 @@
     <input type="submit"   value="Upload File" name="submit">
    </form>
 
-   <form action="upload-svg-thisisHow" method="post" enctype="multipart/form-data">
+   <form method="dialog" onsubmit="createItsHowSvg($('#words').val())" enctype="multipart/form-data">
     Select thisisHow_yyy.svg file to upload:
     <input type="file" name="svg" id="fileToUpload2">
     <label for="words"> Words
@@ -40,6 +40,10 @@
    <script>
        document.getElementById('fileToUpload')
                 .addEventListener('change', getFile)
+        document.getElementById('fileToUpload2')
+                .addEventListener('change', getFile)
+        document.getElementById('csv')
+                .addEventListener('change', getCSVFile)
    </script>
 </body>
 </html>
