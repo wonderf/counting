@@ -5,8 +5,9 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const _ = require('lodash');
 const zip = require('express-easy-zip')
-const rimraf = require("rimraf");
-const PORT = process.env.PORT || 5000;
+const fsExtra = require('fs-extra')
+const fs = require('fs');
+const PORT = process.env.PORT || 3000;
 
 var app = express();
 app.use(fileUpload({
@@ -36,14 +37,17 @@ app.post('/upload-svg', async (req, res) => {
             const end = req.body.end;
             const dirPath = __dirname + "/uploads";
             const base_name = svg.name.split(regex_name)[0];
-            console.log(base_name);
+            const text = svg.data.toString();
             for(let i=start;i<=end;i++){
-                svg.mv('./uploads/' + base_name+"_"+i+".svg");
+                
+                
+                body = text.replace("xxx",i);
+                svg.data=body;
+                console.log(svg.data);
+                fs.writeFileSync('./uploads/' + base_name+"_"+i+".svg",body);
+               
             }
-            
-            
 
-            //send response
             await res.zip({
                 files: [{
                     path: dirPath,
@@ -51,7 +55,7 @@ app.post('/upload-svg', async (req, res) => {
                 }],
                 filename: 'files.zip'
             });
-            rimraf(dirPath, function () { console.log("done"); });
+            fsExtra.emptyDirSync('./uploads/')
 
         }
     } catch (err) {
