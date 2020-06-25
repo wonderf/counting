@@ -25,6 +25,9 @@ app.get('/', function(req, res){
 
 app.post('/upload-svg', async (req, res) => {
     try {
+        if (!fs.existsSync('./uploads/')){
+            fs.mkdirSync('./uploads/');
+        }
         if(!req.files) {
             res.send({
                 status: false,
