@@ -20,6 +20,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('dev'));
 
+app.use(express.static('public'));
+
 
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/public/index.html');
@@ -81,12 +83,15 @@ app.post('/upload-svg-thisisHow', async (req, res) => {
             const svg = req.files.svg;
             let words = req.body.text;
             const csv = req.files.csv;
-            console.log(typeof words);
+            let parsedWords;
             if(words.length==0){
                 console.log("passed");
                 words = csv.data.toString();
+                console.log(words);
+                parsedWords = words.split('\r\n');
+            }else{
+                parsedWords = words.split(",");
             }
-            const parsedWords = words.split(",");
             console.log(parsedWords);
             
             const base_name = svg.name.split(regex_name)[0];

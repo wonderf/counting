@@ -3,7 +3,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-
+  <script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
   <title>Index</title>
   
 
@@ -13,17 +16,17 @@
 
 <body>
   <span>Main page</span>
-  <form action="upload-svg-born" method="post" enctype="multipart/form-data">
+  <form action="/" method="dialog"  onsubmit="createBornSvg(parseInt($('#start').val()),parseInt($('#end').val()))">
     Select born_in_xxx.svg file to upload:
     <input type="file" name="svg" id="fileToUpload">
-    <input type="number" name="start">
-    <input type="number" name="end">
-    <input type="submit" value="Upload File" name="submit">
+    <input type="number" name="start" id="start">
+    <input type="number" name="end" id="end">
+    <input type="submit"   value="Upload File" name="submit">
    </form>
 
    <form action="upload-svg-thisisHow" method="post" enctype="multipart/form-data">
     Select thisisHow_yyy.svg file to upload:
-    <input type="file" name="svg" id="fileToUpload">
+    <input type="file" name="svg" id="fileToUpload2">
     <label for="words"> Words
     <input type="text" name="text" id="words"></label>
     <label for="csv">or csv
@@ -31,5 +34,12 @@
     </label>
     <input type="submit" value="Upload File" name="submit">
    </form>
+   <script src="js/jszip.min.js"></script>
+   <script src="js/process.js"></script>
+   <script src="js/FileSaver.js"></script>
+   <script>
+       document.getElementById('fileToUpload')
+                .addEventListener('change', getFile)
+   </script>
 </body>
 </html>
