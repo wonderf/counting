@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const _ = require('lodash');
 const zip = require('express-easy-zip')
 const rimraf = require("rimraf");
+const PORT = process.env.PORT || 5000;
 
 var app = express();
 app.use(fileUpload({
@@ -59,6 +60,6 @@ app.post('/upload-svg', async (req, res) => {
 });
 
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+app.listen(PORT, function () {
+  console.log('Example app listening');
 });
